@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="rocha"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2022-01-21 11:39:04 PM"/>
+        <attribute name="created" value="cm9jaGE7Uk9DSEFOUy1MQVBUT1A7MjAyMi0wMS0yMTsxMDowNjozNSBQTTsyODI5"/>
+        <attribute name="edited" value="cm9jaGE7Uk9DSEFOUy1MQVBUT1A7MjAyMi0wMS0yMTsxMTozOTowNCBQTTsxOzI5NDA="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n, i, lastseatchosen, run, process" type="Integer" array="False" size=""/>
+            <declare name="r" type="Integer" array="True" size="10"/>
+            <declare name="s" type="String" array="True" size="10"/>
+            <declare name="yesno" type="String" array="False" size=""/>
+            <for variable="i" start="1" end="10" direction="inc" step="1">
+                <assign variable="r[i-1]" expression="i"/>
+            </for>
+            <for variable="i" start="65" end="74" direction="inc" step="1">
+                <assign variable="s[i-65]" expression="ToChar(i)"/>
+            </for>
+            <assign variable="i" expression="0"/>
+            <assign variable="lastseatchosen" expression="0"/>
+            <assign variable="run" expression="1"/>
+            <assign variable="process" expression="1"/>
+            <while expression="run==1">
+                <if expression="lastseatchosen==100">
+                    <then>
+                        <assign variable="run" expression="0"/>
+                        <assign variable="process" expression="0"/>
+                    </then>
+                    <else/>
+                </if>
+                <output expression="&quot;How many seats do you want?&quot;" newline="True"/>
+                <input variable="n"/>
+                <if expression="n&gt;(100-lastseatchosen)">
+                    <then>
+                        <output expression="&quot;Enough seats are not available&quot;" newline="True"/>
+                        <assign variable="process" expression="0"/>
+                    </then>
+                    <else/>
+                </if>
+                <if expression="(n+lastseatchosen%10)&gt;10">
+                    <then>
+                        <output expression="&quot;There is not enough seats in the row. Is it ok if some seats are in one row and some in the next row?&quot;" newline="True"/>
+                        <input variable="yesno"/>
+                        <if expression="yesno==&quot;yes&quot;">
+                            <then/>
+                            <else>
+                                <assign variable="process" expression="0"/>
+                            </else>
+                        </if>
+                    </then>
+                    <else/>
+                </if>
+                <if expression="process==1">
+                    <then>
+                        <output expression="&quot;The alloted seats are:&quot;" newline="True"/>
+                        <assign variable="i" expression="lastseatchosen"/>
+                        <for variable="i" start="lastseatchosen" end="lastseatchosen+n-1" direction="inc" step="1">
+                            <output expression="r[i/10]&amp;&quot;-&quot;&amp;s[i%10]" newline="True"/>
+                        </for>
+                        <assign variable="lastseatchosen" expression="lastseatchosen+n"/>
+                    </then>
+                    <else/>
+                </if>
+                <output expression="&quot;Do you want to continue?&quot;" newline="True"/>
+                <input variable="yesno"/>
+                <if expression="yesno==&quot;yes&quot;">
+                    <then/>
+                    <else>
+                        <assign variable="process" expression="0"/>
+                        <output expression="&quot;The number of empty seats are &quot;&amp;100-lastseatchosen" newline="True"/>
+                    </else>
+                </if>
+            </while>
+        </body>
+    </function>
+</flowgorithm>
